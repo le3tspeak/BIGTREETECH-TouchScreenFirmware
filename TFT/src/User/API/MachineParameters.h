@@ -25,6 +25,7 @@ P_LIN_ADV,
 P_ABL_STATE,
 P_OFFSET_TOOL,
 P_HYBRID_THRESHOLD,
+P_TMC_STEPPING_MODE,
 // Keep below items always at the end
 P_SAVE_SETTINGS,
 P_RESTORE_SETTINGS,
@@ -69,6 +70,7 @@ float LinAdvance[2];
 float ABLState[2];
 float OffsetTool[3];
 float HybridThreshold[STEPPER_COUNT];
+float TMCSteppingMode[STEPPER_COUNT];
 }PARAMETERS;
 
 extern PARAMETERS infoParameters;
@@ -78,6 +80,7 @@ extern const LABEL accel_disp_ID[];
 extern const LABEL retract_disp_ID[];
 extern const LABEL recover_disp_ID[];
 extern const LABEL retract_auto_ID[];
+extern const LABEL tmc_stepping_mode_disp_ID[];
 
 float getParameter(PARAMETER_NAME name, uint8_t index);
 void setParameter(PARAMETER_NAME name, uint8_t index, float val);

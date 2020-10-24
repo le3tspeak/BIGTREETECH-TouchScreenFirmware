@@ -271,6 +271,7 @@
     #define STRING_CONNECTION_SETTINGS    "Connexion"
     #define STRING_OFFSET_TOOL            "Offset 2ème Buse"
     #define STRING_HYBRID_THRESHOLD       "Seuil Hybride TMC"
+    #define STRING_TMC_STEPPING_MODE      "TMC Stepping Mode"
     #define STRING_NOTIFICATIONS          "Notifications"
 
 #endif

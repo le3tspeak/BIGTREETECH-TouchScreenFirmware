@@ -783,6 +783,27 @@ void sendQueueCmd(void)
           if(cmd_seen('Z')) setParameter(P_HYBRID_THRESHOLD, Z_STEPPER, cmd_value());
           if(cmd_seen('E')) setParameter(P_HYBRID_THRESHOLD, E_STEPPER, cmd_value());
           break;
+        case 569: //M569 TMC Stepping Mode
+          if(cmd_seen('X')) setParameter(P_TMC_STEPPING_MODE, X_AXIS, cmd_value());
+          if(cmd_seen('Y')) setParameter(P_TMC_STEPPING_MODE, Y_AXIS, cmd_value());
+          if(cmd_seen('Z')) setParameter(P_TMC_STEPPING_MODE, Z_AXIS, cmd_value());
+          if(cmd_seen('E')) setParameter(P_TMC_STEPPING_MODE, E_AXIS, cmd_value());
+          if(cmd_seen('I'))
+          {
+            if(cmd_seen('X')) setDualStepperStatus(X_STEPPER,true);
+            if(cmd_seen('Y')) setDualStepperStatus(Y_STEPPER,true);
+            if(cmd_seen('Z')) setDualStepperStatus(Z_STEPPER,true);
+          }
+          if(cmd_seen('T') && cmd_value() == 0)
+          {
+            if(cmd_seen('E')) setParameter(P_TMC_STEPPING_MODE,E_STEPPER,cmd_value());
+          }
+          if(cmd_seen('T') && cmd_value() == 1)
+          {
+            if(cmd_seen('E')) setParameter(P_TMC_STEPPING_MODE,E2_STEPPER,cmd_value());
+            setDualStepperStatus(E_STEPPER,true);
+          }
+          break;
       }
       break; //end parsing M-codes
 

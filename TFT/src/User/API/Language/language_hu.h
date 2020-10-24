@@ -271,6 +271,7 @@
     #define STRING_CONNECTION_SETTINGS    "Kapcsolat"
     #define STRING_OFFSET_TOOL            "Második fej eltolása"
     #define STRING_HYBRID_THRESHOLD       "TMC Hibrid Küszöbérték"
+    #define STRING_TMC_STEPPING_MODE      "TMC Stepping Mode"
     #define STRING_NOTIFICATIONS          "Értesítések"
 
 #endif

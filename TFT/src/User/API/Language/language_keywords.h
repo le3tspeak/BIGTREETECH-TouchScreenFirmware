@@ -278,6 +278,7 @@ extern "C" {
 #define LANG_KEY_CONNECTION_SETTINGS          "label_connection_settings:"
 #define LANG_KEY_OFFSET_TOOL                  "label_offset_tool:"
 #define LANG_KEY_HYBRID_THRESHOLD             "label_hybrid_threshold:"
+#define LANG_KEY_TMC_STEPPING_MODE            "label_tmc_stepping_mode"
 #define LANG_KEY_NOTIFICATIONS                "label_notifications:"
 
 

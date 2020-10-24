@@ -271,6 +271,7 @@
     #define STRING_CONNECTION_SETTINGS    "Connection"
     #define STRING_OFFSET_TOOL            "Offset 2nd Nozzle"
     #define STRING_HYBRID_THRESHOLD       "TMC HybridThreshold"
+    #define STRING_TMC_STEPPING_MODE      "TMC Stepping Mode"    
     #define STRING_NOTIFICATIONS          "Notifications"
 
 #endif

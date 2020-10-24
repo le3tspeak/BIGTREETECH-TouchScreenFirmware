@@ -552,6 +552,24 @@ void parseACK(void)
                           setParameter(P_HYBRID_THRESHOLD, E2_STEPPER, ack_value());
                           setDualStepperStatus(E_STEPPER, true);
       }
+    // parse and store TMC Stepping Mode
+      else if(ack_seen("M569 X")){
+                          setParameter(P_TMC_STEPPING_MODE, X_STEPPER, ack_value());
+        if(ack_seen("Y")) setParameter(P_TMC_STEPPING_MODE, Y_STEPPER, ack_value());
+        if(ack_seen("Z")) setParameter(P_TMC_STEPPING_MODE, Z_STEPPER, ack_value());
+      }
+      else if(ack_seen("M569 I1")){
+        if(ack_seen("X")) setDualStepperStatus(X_STEPPER, true);
+        if(ack_seen("Y")) setDualStepperStatus(Y_STEPPER, true);
+        if(ack_seen("Z")) setDualStepperStatus(Z_STEPPER, true);
+      }
+      else if(ack_seen("M569 T0 E")){
+        setParameter(P_TMC_STEPPING_MODE, E_STEPPER, ack_value());
+      }
+      else if(ack_seen("M569 T1 E")){
+        setParameter(P_TMC_STEPPING_MODE, E2_STEPPER, ack_value());
+        setDualStepperStatus(E_STEPPER, true);
+      }
     // Parse and store ABL type if auto-detect is enabled
       else if (ack_seen("Auto Bed Leveling") && ENABLE_BL_VALUE == 1)
       {

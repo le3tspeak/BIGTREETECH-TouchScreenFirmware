@@ -3,7 +3,7 @@
 
 PARAMETERS infoParameters;
 
-const u8 parameter_element_count[PARAMETERS_COUNT] = {5, 5, 5, 5, 3, 4, 3, 3, 4, 4, 1, 2, 2, 3, 5};
+const u8 parameter_element_count[PARAMETERS_COUNT] = {5, 5, 5, 5, 3, 4, 3, 3, 4, 4, 1, 2, 2, 3, 5, 5};
 
 const char *const parameter_Cmd[PARAMETERS_COUNT][STEPPER_COUNT] = {
   {"M92 X%.2f\n",    "M92 Y%.2f\n", "M92 Z%.2f\n",  "M92 T0 E%.2f\n",  "M92 T1 E%.2f\nM503 S0\n"}, //Steps/mm
@@ -21,6 +21,7 @@ const char *const parameter_Cmd[PARAMETERS_COUNT][STEPPER_COUNT] = {
   {"M420 S%.0f\n", "M420 Z%.2f\n",            NULL,              NULL,                       NULL}, //ABL State + Z Fade
   {"M218 T1 X%.2f\nM503 S0\n", "M218 T1 Y%.2f\nM503 S0\n", "M218 T1 Z%.2f\nM503 S0\n", NULL, NULL}, //Offset Tools
   {"M913 X%.0f\n",  "M913 Y%.0f\n", "M913 Z%.0f\n",    "M913 E%.0f\n", "M913 T1 E%.0f\nM503 S0\n"}, //TMC Hybrid Threshold Speed
+  {"M569 X%.0f\n",  "M569 Y%.0f\n", "M569 Z%.0f\n",    "M569 E%.0f\n", "M569 T1 E%.0f\nM503 S0\n"}, //TMC Stepping Mode
 };
 
 const VAL_TYPE parameter_val_type[PARAMETERS_COUNT][STEPPER_COUNT] = {
@@ -39,13 +40,15 @@ const VAL_TYPE parameter_val_type[PARAMETERS_COUNT][STEPPER_COUNT] = {
   {VAL_TYPE_INT,        VAL_TYPE_FLOAT},                                                                  //ABL State + Z Fade
   {VAL_TYPE_NEG_FLOAT,  VAL_TYPE_NEG_FLOAT, VAL_TYPE_NEG_FLOAT},                                          //Offset Tools
   {VAL_TYPE_INT,        VAL_TYPE_INT,       VAL_TYPE_INT,         VAL_TYPE_INT,         VAL_TYPE_INT},    //TMC Hybrid Threshold Speed
+  {VAL_TYPE_INT,        VAL_TYPE_INT,       VAL_TYPE_INT,         VAL_TYPE_INT,         VAL_TYPE_INT},    //TMC Stepping Mode
 };
 
 //Extra teppers current gcode command
-const char *const dualStepperParameter_cmd[3][AXIS_NUM] = {
+const char *const dualStepperParameter_cmd[4][AXIS_NUM] = {
   {"M906 I1 X%.0f\n", "M906 I1 Y%.0f\n", "M906 I1 Z%.0f\n"},  //Current
   {"M914 I1 X%.0f\n", "M914 I1 Y%.0f\n", "M914 I1 Z%.0f\n"},  //bump Sensitivity
   {"M913 I1 X%.0f\n", "M913 I1 Y%.0f\n", "M913 I1 Z%.0f\n"},  //TMC Hybrid Threshold Speed
+  {"M569 I1 X%.0f\n", "M569 I1 Y%.0f\n", "M569 I1 Z%.0f\n"},  //TMC Stepping Mode
 };
 
 
@@ -57,6 +60,7 @@ const LABEL accel_disp_ID[] = {LABEL_PRINT_ACCELERATION, LABEL_RETRACT_ACCELERAT
 const LABEL retract_disp_ID[] = {LABEL_RETRACT_LENGTH, LABEL_RETRACT_SWAP_LENGTH, LABEL_RETRACT_FEEDRATE, LABEL_RETRACT_Z_LIFT};
 const LABEL recover_disp_ID[] = {LABEL_RECOVER_LENGTH, LABEL_SWAP_RECOVER_LENGTH, LABEL_RECOVER_FEEDRATE, LABEL_SWAP_RECOVER_FEEDRATE};
 const LABEL retract_auto_ID[] = {LABEL_RETRACT_AUTO};
+const LABEL tmc_stepping_mode_disp_ID[] = {LABEL_TMC_STEPPING_MODE};
 
 
 float getParameter(PARAMETER_NAME name, u8 index)
@@ -93,7 +97,9 @@ float getParameter(PARAMETER_NAME name, u8 index)
   case P_OFFSET_TOOL:
     return infoParameters.OffsetTool[index];
   case P_HYBRID_THRESHOLD:
-    return infoParameters.HybridThreshold[index];  
+    return infoParameters.HybridThreshold[index];
+  case P_TMC_STEPPING_MODE:
+    return infoParameters.TMCSteppingMode[index];  
   default:
     return 0.0f;
   }
@@ -149,6 +155,9 @@ void setParameter(PARAMETER_NAME name, u8 index, float val)
     case P_HYBRID_THRESHOLD:
       infoParameters.HybridThreshold[index] = val;
       break;
+    case P_TMC_STEPPING_MODE:
+      infoParameters.TMCSteppingMode[index] = val;
+      break;
     default:
       break;
     }
@@ -185,6 +194,8 @@ void sendParameterCmd(PARAMETER_NAME para, u8 stepper_index, float Value)
         storeCmd(dualStepperParameter_cmd[1][stepper_index], Value);
       if(para == P_HYBRID_THRESHOLD)  
         storeCmd(dualStepperParameter_cmd[2][stepper_index], Value);
+      if(para == P_TMC_STEPPING_MODE)  
+        storeCmd(dualStepperParameter_cmd[3][stepper_index], Value);
     }
 }
 

@@ -271,6 +271,7 @@
     #define STRING_CONNECTION_SETTINGS    "Připojení"
     #define STRING_OFFSET_TOOL            "Offset 2.trysky"
     #define STRING_HYBRID_THRESHOLD       "TMC Hybridní práh"
+    #define STRING_TMC_STEPPING_MODE      "TMC Stepping Mode"
     #define STRING_NOTIFICATIONS          "Notifications"
 
 #endif

@@ -271,6 +271,7 @@
     #define STRING_CONNECTION_SETTINGS    "Соединение"
     #define STRING_OFFSET_TOOL            "Смещение 2-го сопла"
     #define STRING_HYBRID_THRESHOLD       "TMC гибридный порог"
+    #define STRING_TMC_STEPPING_MODE      "TMC Stepping Mode"
     #define STRING_NOTIFICATIONS          "Уведомления"
 
 #endif
